@@ -243,6 +243,14 @@ resource "azurerm_role_assignment" "aks_acr_role_assignment" {
   skip_service_principal_aad_check = true
 }
 */
+terraform {
+  required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = "4.2.0"
+    }
+  }
+}
 
 resource "azurerm_resource_group" "rg" {
   name     = local.resource_group_name
