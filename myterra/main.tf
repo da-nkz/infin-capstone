@@ -252,6 +252,15 @@ terraform {
   }
 }
 
+provider "azurerm" {
+  # Configuration options
+  subscription_id = "bb2deb4b-6e10-4ab3-9e19-6ce5fb991eee"
+  tenant_id = "104704fd-f711-4575-99d5-8a6588951c90"
+  client_id = "4d0ef829-4b24-49d0-8f35-8740e95ba183"
+  client_secret = ".eP8Q~Sldvbab1RtQqpwVH.wY4eSbyi26D7~vc15"
+   features {}
+}
+
 resource "azurerm_resource_group" "rg" {
   name     = local.resource_group_name
   location = local.location
