@@ -17,10 +17,10 @@ jobs:
     - name: Set Azure Credentials
       run: |
         echo "Setting Azure environment variables"
-        echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> $GITHUB_ENV
-        echo "CLIENT_SECRET=${{ secrets.VALUE }}" >> $GITHUB_ENV
-        echo "SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
-        echo "TENANT_ID=${{ secrets.TENANT_ID }}" >> $GITHUB_ENV
+        echo "ARM_CLIENT_ID=${{ secrets.CLIENT_ID }}" >> $GITHUB_ENV
+        echo "ARM_CLIENT_SECRET=${{ secrets.VALUE }}" >> $GITHUB_ENV
+        echo "ARM_SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+        echo "ARM_TENANT_ID=${{ secrets.TENANT_ID }}" >> $GITHUB_ENV
 
     # Step 2: Set up Azure CLI
     - name: Azure CLI Login
