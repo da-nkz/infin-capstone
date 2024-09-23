@@ -347,7 +347,7 @@ resource "azurerm_linux_virtual_machine" "linuxvm" {
   location            = local.location
   size                = "Standard_F2"
   admin_username      = "adminuser"
-  admin_password      = var.pass
+  admin_password      = "Adminuser123$"
   disable_password_authentication = false
   network_interface_ids = [
     azurerm_network_interface.nic_vm.id,
