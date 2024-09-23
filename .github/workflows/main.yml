@@ -1,0 +1,38 @@
+name: CI/CD Pipeline for Python App on Azure
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the code
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set Azure Credentials
+      run: |
+        echo "Setting Azure environment variables"
+        echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> $GITHUB_ENV
+        echo "CLIENT_SECRET=${{ secrets.VALUE }}" >> $GITHUB_ENV
+        echo "SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+        echo "TENANT_ID=${{ secrets.TENANT_ID }}" >> $GITHUB_ENV
+
+    # Step 2: Set up Azure CLI
+    - name: Azure CLI Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_REG }}
+
+    # Step 3: Initialize Terraform and apply the infrastructure only (ACR, AKS)
+    - name: Initialize Terraform
+      working-directory: ./myterra
+      run: terraform init
+
+    - name: Apply Terraform (Infrastructure Only)
+      working-directory: ./myterra
+      run: terraform apply -auto-approve 
