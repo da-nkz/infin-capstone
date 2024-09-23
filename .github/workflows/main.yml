@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Python App on Azure
 on:
   push:
     branches:
-      - master
+      - '*'
 
 jobs:
   build-and-deploy:
