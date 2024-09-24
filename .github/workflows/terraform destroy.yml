@@ -1,0 +1,37 @@
+name: CI/CD Pipeline for to destroy infrastructure
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the code
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set Azure Credentials
+      run: |
+        echo "Setting Azure environment variables"
+        echo "ARM_CLIENT_ID=${{ secrets.CLIENT_ID }}" >> $GITHUB_ENV
+        echo "ARM_CLIENT_SECRET=${{ secrets.VALUE }}" >> $GITHUB_ENV
+        echo "ARM_SUBSCRIPTION_ID=${{ secrets.SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+        echo "ARM_TENANT_ID=${{ secrets.TENANT_ID }}" >> $GITHUB_ENV
+    # Step 2: Set up Azure CLI
+    - name: Azure CLI Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_REG }}
+
+    # Step 3: Initialize Terraform and apply the infrastructure only (ACR, AKS)
+    - name: Initialize Terraform
+      working-directory: ./myterra
+      run: terraform init
+
+    - name: Apply Terraform (Infrastructure Only)
+      working-directory: ./myterra
+      run: terraform destroy -auto-approve 
