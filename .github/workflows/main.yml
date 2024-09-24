@@ -28,7 +28,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_REG }}
 
-    # Step 3: Initialize Terraform and apply the infrastructure only (ACR, AKS)
+    # Step 3: Initialize Terraform and destroy the infrastructure only (ACR, AKS)
     - name: Initialize Terraform
       working-directory: ./myterra
       run: terraform init
